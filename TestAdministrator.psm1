@@ -22,7 +22,7 @@ function Test-Administrator
 {
     <#
         .SYNOPSIS
-        Return true calling script is run with administrator privileges
+        Returns true if calling script is run with administrator privileges
 
         .NOTES
         Thanks to https://serverfault.com/a/97599
@@ -37,7 +37,7 @@ function Restart-AsAdministrator
 {
     <#
         .SYNOPSIS
-        Launch passed script as administrator
+        Launches passed script as administrator
 
         .EXAMPLE
         Restart-AsAdministrator -BypassExecutionPolicy -CommandPath $MyInvocation.MyCommand.Path -BoundParameters $PSBoundParameters
