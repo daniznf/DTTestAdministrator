@@ -1,4 +1,4 @@
-﻿<#
+<#
     Daniele's Tools Test Administrator
     Copyright (C) 2022 Daniznf
 
@@ -47,16 +47,12 @@ function Restart-AsAdministrator
         # Use ExecutionPolicy Bypass to launch the script
         $BypassExecutionPolicy,
 
-        [Parameter(Mandatory)]
-        [string]
-        # Path of the script to launch
-        $CommandPath,
-
         [System.Collections.Generic.Dictionary`2[System.String,System.Object]]
-        # Parameters used to launch the script
         $BoundParameters        
     )
     
+    $ScriptPath = $MyInvocation.ScriptName
+
     $Arguments = ""
 
     if ($BypassExecutionPolicy)
@@ -64,13 +60,13 @@ function Restart-AsAdministrator
         $Arguments = "-ExecutionPolicy Bypass"
     }
 
-    $Arguments += " -File `"" + $CommandPath + "`""
+    $Arguments += " -File ""$ScriptPath"""
     
     $BoundParameters.Keys | ForEach-Object {
         $Arguments += " -" + $_
         if ($BoundParameters[$_].GetType() -ne [System.Management.Automation.SwitchParameter])
         {
-            $Arguments += " `"" + $BoundParameters[$_] + "`""
+            $Arguments += " ""{0}""" -f $BoundParameters[$_]
         }
     }
     
