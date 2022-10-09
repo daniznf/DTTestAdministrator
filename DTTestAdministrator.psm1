@@ -1,4 +1,4 @@
-<#
+﻿<#
     Daniele's Tools Test Administrator
     Copyright (C) 2022 Daniznf
 
@@ -15,7 +15,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-    https://github.com/daniznf/TestAdministrator
+    https://github.com/daniznf/DTTestAdministrator
 #>
 
 function Test-Administrator
