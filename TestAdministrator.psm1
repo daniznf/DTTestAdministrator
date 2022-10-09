@@ -14,43 +14,35 @@
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
-    
+
     https://github.com/daniznf/TestAdministrator
 #>
 
-function Test-Administrator  
+function Test-Administrator
 {
+    $User = [Security.Principal.WindowsIdentity]::GetCurrent()
+    $Principal = (New-Object Security.Principal.WindowsPrincipal $User)
+    return $Principal.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
+
     <#
         .SYNOPSIS
-        Return true calling script is run with administrator privileges
+        Returns $true if calling script is run with administrator privileges.
 
         .NOTES
         Thanks to https://serverfault.com/a/97599
     #>
-
-    $User = [Security.Principal.WindowsIdentity]::GetCurrent()
-    $Principal = (New-Object Security.Principal.WindowsPrincipal $User)
-    return $Principal.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
 }
 
 function Restart-AsAdministrator
 {
-    <#
-        .SYNOPSIS
-        Launch passed script as administrator
-
-        .EXAMPLE
-        Restart-AsAdministrator -BypassExecutionPolicy -CommandPath $MyInvocation.MyCommand.Path -BoundParameters $PSBoundParameters
-    #>
     param(
         [switch]
-        # Use ExecutionPolicy Bypass to launch the script
         $BypassExecutionPolicy,
 
         [System.Collections.Generic.Dictionary`2[System.String,System.Object]]
-        $BoundParameters        
+        $BoundParameters
     )
-    
+
     $ScriptPath = $MyInvocation.ScriptName
 
     $Arguments = ""
@@ -61,7 +53,7 @@ function Restart-AsAdministrator
     }
 
     $Arguments += " -File ""$ScriptPath"""
-    
+
     $BoundParameters.Keys | ForEach-Object {
         $Arguments += " -" + $_
         if ($BoundParameters[$_].GetType() -ne [System.Management.Automation.SwitchParameter])
@@ -69,15 +61,22 @@ function Restart-AsAdministrator
             $Arguments += " ""{0}""" -f $BoundParameters[$_]
         }
     }
-    
+
     Start-Process Powershell -Verb RunAs -ArgumentList $Arguments
+
+    <#
+        .SYNOPSIS
+        Launches passed script as administrator
+
+        .PARAMETER BypassExecutionPolicy
+        Use ExecutionPolicy Bypass to launch the script
+
+        .PARAMETER BoundParameters
+        Parameters to use to launch the script
+
+        .EXAMPLE
+        Restart-AsAdministrator -BypassExecutionPolicy -BoundParameters $PSBoundParameters
+    #>
 }
 
 Export-ModuleMember -Function Test-Administrator, Restart-AsAdministrator
-
-<#
-
-.DESCRIPTION
-TestAdministrator v1.0.0
-
-#>
