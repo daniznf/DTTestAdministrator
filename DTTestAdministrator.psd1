@@ -8,7 +8,7 @@
  RootModule = 'DTTestAdministrator.psm1'
 
 # Version number of this module.
-ModuleVersion = '1.4.0'
+ModuleVersion = '1.4.1'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
@@ -26,7 +26,7 @@ Author = 'daniznf'
 Copyright = '(c) 2022 daniznf. All rights reserved.'
 
 # Description of the functionality provided by this module
-Description = 'Test if calling script has administrator privileges.'
+Description = 'Tests if calling script has administrator privileges.'
 
 # Minimum version of the Windows PowerShell engine required by this module
 # PowerShellVersion = ''

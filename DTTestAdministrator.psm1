@@ -25,11 +25,17 @@ function Test-Administrator
     return $Principal.IsInRole([Security.Principal.WindowsBuiltinRole]::Administrator)
 
     <#
-        .SYNOPSIS
-        Returns $true if calling script is run with administrator privileges.
+        .DESCRIPTION
+            Tests if calling script is running with administrator privileges.
+
+        .OUTPUTS
+            $true if calling script is running with administrator privileges.
 
         .NOTES
-        Thanks to https://serverfault.com/a/97599
+            Thanks to https://serverfault.com/a/97599
+
+        .EXAMPLE
+            if (Test-Administrator) { Write-Output "Administrator" } else { Write-Output "Not administrator" }
     #>
 }
 
@@ -65,17 +71,17 @@ function Restart-AsAdministrator
     Start-Process Powershell -Verb RunAs -ArgumentList $Arguments
 
     <#
-        .SYNOPSIS
-        Launches passed script as administrator
+        .DESCRIPTION
+            Restarts calling script with administrator privileges.
 
         .PARAMETER BypassExecutionPolicy
-        Use ExecutionPolicy Bypass to launch the script
+            Use ExecutionPolicy Bypass to launch the script
 
         .PARAMETER BoundParameters
-        Parameters to use to launch the script
+            Parameters to use to launch the script
 
         .EXAMPLE
-        Restart-AsAdministrator -BypassExecutionPolicy -BoundParameters $PSBoundParameters
+            Restart-AsAdministrator -BypassExecutionPolicy -BoundParameters $PSBoundParameters
     #>
 }
 
